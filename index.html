@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Niki Ghanbari — Studio</title>
+<meta name="description" content="Niki Ghanbari — transforming memories, culture, and emotions into visual experiences. Painting, ceramics, printmaking, sculpture.">
+<meta property="og:title" content="Niki Ghanbari — Studio">
+<meta property="og:description" content="A living gallery. Painting, ceramics, printmaking, sculpture.">
+<meta property="og:image" content="assets/art/shahnameh-simurgh-1280.jpg">
+
+<link rel="stylesheet" href="styles/fonts.css">
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/layout.css">
+<link rel="stylesheet" href="styles/motion.css">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230F0D0C'/><path d='M9 24 L9 8 L23 24 L23 8' stroke='%238B4225' stroke-width='2.5' fill='none' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#fine-art">Skip to the gallery</a>
+
+<!-- ══ Preloader — a sketch resolving into a mark ══ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <svg class="preloader-mark" viewBox="0 0 120 120" width="120" height="120">
+    <defs>
+      <filter id="sketch-wobble" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence id="sketch-turb" type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="7" result="noise"/>
+        <feDisplacementMap id="sketch-disp" in="SourceGraphic" in2="noise" scale="16"/>
+      </filter>
+    </defs>
+    <g filter="url(#sketch-wobble)">
+      <path id="mark-path" d="M34 90 L34 30 L86 90 L86 30 M26 98 L94 98"
+            fill="none" stroke="var(--bone)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </svg>
+</div>
+
+<!-- ══ Living grain field (WebGL, fixed behind everything) ══ -->
+<canvas id="grainfield" aria-hidden="true"></canvas>
+
+<!-- ══ Custom cursor ══ -->
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-ring"></span></div>
+
+<!-- ══ Fixed wayfinding ══ -->
+<header class="wayfinding">
+  <p class="wf-name">Niki&nbsp;Ghanbari</p>
+  <p class="wf-room" id="room-label" aria-live="polite">Entry</p>
+</header>
+
+<div id="smooth-wrapper">
+  <div id="smooth-content">
+  <main>
+
+  <!-- ══════════ I. ENTRY ══════════ -->
+  <section class="room room-entry" id="entry" data-accent="void" data-label="Entry">
+    <div class="entry-inner">
+      <p class="entry-kicker">Painting&ensp;·&ensp;Ceramics&ensp;·&ensp;Printmaking&ensp;·&ensp;Sculpture</p>
+      <h1 class="entry-line">
+        <span class="line-word">Transforming</span>
+        <span class="line-word"><em>memories,</em></span>
+        <span class="line-word"><em>culture,</em></span>
+        <span class="line-word">and <em>emotions</em></span>
+        <span class="line-word">into visual experiences.</span>
+      </h1>
+      <p class="entry-hint" aria-hidden="true">scroll to walk through</p>
+    </div>
+  </section>
+
+  <!-- ══════════ II. FINE ART ROOM ══════════ -->
+  <section class="room room-fine-art" id="fine-art" data-accent="oxblood" data-label="Fine Art">
+    <header class="room-head">
+      <p class="room-number" aria-hidden="true">I</p>
+      <h2 class="room-title">Fine <em>Art</em></h2>
+      <p class="room-note">Figures, surfaces, and the weight of a single color.</p>
+    </header>
+
+    <figure class="artwork art-left" tabindex="0" data-speed="0.94">
+      <div class="frame" style="--ar:943/1280;background-image:url('assets/art/woman-in-red-blur.webp')">
+        <picture>
+          <source type="image/webp" srcset="assets/art/woman-in-red-640.webp 640w, assets/art/woman-in-red-1280.webp 943w" sizes="(max-width:760px) 88vw, 42vw">
+          <img src="assets/art/woman-in-red-1280.jpg" width="943" height="1280" loading="eager"
+               alt="Oil painting of a faceless woman in a long red dress, seen from behind against a saturated crimson field; the dress dissolves into darker brushwork at its hem.">
+        </picture>
+      </div>
+      <figcaption class="wall-label"><span class="wl-title">Woman in Red</span><span class="wl-meta">oil on canvas</span></figcaption>
+    </figure>
+
+    <figure class="artwork art-right" tabindex="0" data-speed="1.05">
+      <div class="frame" style="--ar:780/1173;background-image:url('assets/art/seated-portrait-blur.webp')">
+        <picture>
+          <source type="image/webp" srcset="assets/art/seated-portrait-640.webp 640w, assets/art/seated-portrait-1280.webp 780w" sizes="(max-width:760px) 88vw, 38vw">
+          <img src="assets/art/seated-portrait-1280.jpg" width="780" height="1173" loading="lazy"
+               alt="Expressive portrait study after Alice Neel: a dark-haired man in a charcoal jacket sits cross-legged, chin resting on one hand, against olive and violet walls.">
+        </picture>
+      </div>
+      <figcaption class="wall-label"><span class="wl-title">Seated Portrait — “Neel 62”</span><span class="wl-meta">study after Alice Neel · acrylic</span></figcaption>
+    </figure>
+
+    <figure class="artwork art-wide" tabindex="0" data-speed="0.97">
+      <div class="frame" style="--ar:1280/892;background-image:url('assets/art/bronze-feather-blur.webp')">
+        <picture>
+          <source type="image/webp" srcset="assets/art/bronze-feather-640.webp 640w, assets/art/bronze-feather-1280.webp 1280w" sizes="(max-width:760px) 88vw, 52vw">
+          <img src="assets/art/bronze-feather-1280.jpg" width="1280" height="892" loading="lazy"
+               alt="Sculpted feather with a bronze-and-verdigris patina resting on a white plinth, its barbs modeled in fine ridged relief.">
+        </picture>
+      </div>
+      <figcaption class="wall-label"><span class="wl-title">Feather</span><span class="wl-meta">glazed ceramic, bronze patina</span></figcaption>
+    </figure>
+
+    <figure class="artwork art-right" tabindex="0" data-speed="1.04">
+      <div class="frame" style="--ar:1024/1024;background-image:url('assets/art/anatomical-head-blur.webp')">
+        <picture>
+          <source type="image/webp" srcset="assets/art/anatomical-head-640.webp 640w, assets/art/anatomical-head-1280.webp 1024w" sizes="(max-width:760px) 88vw, 44vw">
+          <img src="assets/art/anatomical-head-1280.jpg" width="1024" height="1024" loading="lazy"
+               alt="Écorché study: a carved head and neck in pale wood tones, facial muscles and tendons incised in flowing striations, photographed in the sculpture studio.">
+        </picture>
+      </div>
+      <figcaption class="wall-label"><span class="wl-title">Écorché Head</span><span class="wl-meta">anatomical study · carved and modeled</span></figcaption>
+    </figure>
+
+    <figure class="artwork art-center art-mask" tabindex="0" data-speed="0.92">
+      <div class="frame frame-alpha" style="--ar:394/605">
+        <picture>
+          <source type="image/webp" srcset="assets/art/tearful-mask-640.webp 394w">
+          <img src="assets/art/tearful-mask-1280.png" width="394" height="605" loading="lazy"
+               alt="Glossy sculpted mask of a weeping face, glazed in warm skin tones with dark tears streaking from both black eyes.">
+        </picture>
+      </div>
+      <figcaption class="wall-label"><span class="wl-title">Tearful Mask</span><span class="wl-meta">glazed sculpture</span></figcaption>
+    </figure>
+  </section>
+
+  <!-- ══════════ INTERSTITIAL — STUDIO GLIMPSE ══════════ -->
+  <section class="room interstitial" id="studio" data-accent="void" data-label="Studio">
+    <div class="studio-track">
+      <p class="studio-line">passing the <em>studio</em> door&nbsp;—</p>
+      <figure class="artwork studio-photo" tabindex="0">
+        <div class="frame" style="--ar:690/690;background-image:url('assets/art/printmaking-workspace-blur.webp')">
+          <picture>
+            <source type="image/webp" srcset="assets/art/printmaking-workspace-640.webp 640w, assets/art/printmaking-workspace-1280.webp 690w" sizes="(max-width:760px) 70vw, 34vw">
+            <img src="assets/art/printmaking-workspace-1280.jpg" width="690" height="690" loading="lazy"
+                 alt="Printmaking table mid-session: monogram test prints and sun-face etchings drying on newsprint beside a disc of black ink.">
+          </picture>
+        </div>
+        <figcaption class="wall-label"><span class="wl-title">Printmaking Workspace</span><span class="wl-meta">the desk, mid-edition</span></figcaption>
+      </figure>
+      <p class="studio-line studio-line-after">— where raw material learns its <em>shape</em></p>
+    </div>
+  </section>
+
+  <!-- ══════════ III. CULTURAL ROOM ══════════ -->
+  <section class="room room-cultural" id="cultural" data-accent="clay" data-label="Cultural">
+    <header class="room-head">
+      <p class="room-number" aria-hidden="true">II</p>
+      <h2 class="room-title">Cultural <em>Memory</em></h2>
+      <p class="room-note">Clay, calligraphy, and stories carried from Persia.</p>
+    </header>
+
+    <div class="vessel-pair">
+      <figure class="artwork" tabindex="0" data-speed="0.96">
+        <div class="frame" style="--ar:768/1024;background-image:url('assets/art/calligraphic-vase-blur.webp')">
+          <picture>
+            <source type="image/webp" srcset="assets/art/calligraphic-vase-640.webp 640w, assets/art/calligraphic-vase-1280.webp 768w" sizes="(max-width:760px) 82vw, 34vw">
+            <img src="assets/art/calligraphic-vase-1280.jpg" width="768" height="1024" loading="lazy"
+                 alt="Round-bellied ceramic vase glazed in white and rust, a band of black Persian calligraphy sweeping across its shoulder.">
+          </picture>
+        </div>
+        <figcaption class="wall-label"><span class="wl-title">Calligraphic Vase</span><span class="wl-meta">glazed ceramic · Persian script</span></figcaption>
+      </figure>
+
+      <figure class="artwork" tabindex="0" data-speed="1.06">
+        <div class="frame" style="--ar:864/1152;background-image:url('assets/art/unglazed-vessel-blur.webp')">
+          <picture>
+            <source type="image/webp" srcset="assets/art/unglazed-vessel-640.webp 640w, assets/art/unglazed-vessel-1280.webp 864w" sizes="(max-width:760px) 82vw, 34vw">
+            <img src="assets/art/unglazed-vessel-1280.jpg" width="864" height="1152" loading="lazy"
+                 alt="The same vessel form in raw terracotta, unglazed and veined with hairline cracks, Persian calligraphy carved into the clay body.">
+          </picture>
+        </div>
+        <figcaption class="wall-label"><span class="wl-title">Unglazed Vessel</span><span class="wl-meta">terracotta · carved script</span></figcaption>
+      </figure>
+    </div>
+
+    <figure class="artwork art-left" tabindex="0" data-speed="0.95">
+      <div class="frame" style="--ar:745/1280;background-image:url('assets/art/crow-and-sun-blur.webp')">
+        <picture>
+          <source type="image/webp" srcset="assets/art/crow-and-sun-640.webp 640w, assets/art/crow-and-sun-1280.webp 745w" sizes="(max-width:760px) 88vw, 38vw">
+          <img src="assets/art/crow-and-sun-1280.jpg" width="745" height="1280" loading="lazy"
+               alt="Ink composition: a hunched crow with a human hand, a radiant sun bearing a face, and verdigris monotype clouds over a great black wing.">
+        </picture>
+      </div>
+      <figcaption class="wall-label"><span class="wl-title">Crow and Sun</span><span class="wl-meta">ink and monotype on paper</span></figcaption>
+    </figure>
+
+    <figure class="artwork art-right" tabindex="0" data-speed="1.05">
+      <div class="frame" style="--ar:960/1280;background-image:url('assets/art/om-triangle-blur.webp')">
+        <picture>
+          <source type="image/webp" srcset="assets/art/om-triangle-640.webp 640w, assets/art/om-triangle-1280.webp 960w" sizes="(max-width:760px) 88vw, 40vw">
+          <img src="assets/art/om-triangle-1280.jpg" width="960" height="1280" loading="lazy"
+               alt="Triangular canvas painted with an Om symbol over a warped black-and-white checkerboard, photographed on a marble street wall beside layered Persian posters.">
+        </picture>
+      </div>
+      <figcaption class="wall-label"><span class="wl-title">Om, Triangulated</span><span class="wl-meta">acrylic on shaped canvas · street hang</span></figcaption>
+    </figure>
+
+    <!-- Centerpiece: pinned layered reveal -->
+    <div class="centerpiece" id="centerpiece">
+      <div class="cp-stage">
+        <div class="cp-viewport">
+          <div class="cp-pan">
+            <picture>
+              <source type="image/webp" srcset="assets/art/shahnameh-simurgh-1280.webp">
+              <img class="cp-img" src="assets/art/shahnameh-simurgh-1280.jpg" width="1023" height="1280" loading="lazy"
+                   alt="Large mixed-media composition from the Shahnameh: the infant Zal abandoned on a brown mountain, flames rising below, a sky of printed crows, the bearded face of a hero in blue underpaint, the Simurgh in black ink descending toward a burlap nest with a white egg, and the word Simurgh in sweeping Persian calligraphy.">
+            </picture>
+          </div>
+          <div class="cp-vignette" aria-hidden="true"></div>
+        </div>
+        <div class="cp-captions" aria-hidden="true">
+          <p class="cp-caption" data-phase="0">the mountain, and the child left on it</p>
+          <p class="cp-caption" data-phase="1">the fire climbing</p>
+          <p class="cp-caption" data-phase="2">a sky of crows</p>
+          <p class="cp-caption" data-phase="3">سیمرغ — the Simurgh descends</p>
+        </div>
+        <figcaption class="wall-label cp-label"><span class="wl-title">Zal and the Simurgh</span><span class="wl-meta">after the Shahnameh · mixed media, ink and print</span></figcaption>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ IV. EXPERIMENTAL ROOM ══════════ -->
+  <section class="room room-experimental" id="experimental" data-accent="verdigris" data-label="Experimental">
+    <header class="room-head">
+      <p class="room-number" aria-hidden="true">III</p>
+      <h2 class="room-title">Experi<em>mental</em></h2>
+      <p class="room-note">Structure, noise, and what cardboard wants to become.</p>
+    </header>
+
+    <div class="exp-grid">
+      <figure class="artwork exp-a" tabindex="0" data-speed="0.97">
+        <div class="frame" style="--ar:947/1280;background-image:url('assets/art/rainbow-skull-blur.webp')">
+          <picture>
+            <source type="image/webp" srcset="assets/art/rainbow-skull-640.webp 640w, assets/art/rainbow-skull-1280.webp 947w" sizes="(max-width:760px) 88vw, 34vw">
+            <img src="assets/art/rainbow-skull-1280.jpg" width="947" height="1280" loading="lazy"
+                 alt="Painting of a rainbow-hued skull used as a vase, three red roses growing from its crown, set on a scratched amber table against night-blue brushwork.">
+          </picture>
+        </div>
+        <figcaption class="wall-label"><span class="wl-title">Rainbow Skull and Roses</span><span class="wl-meta">mixed media on paper</span></figcaption>
+      </figure>
+
+      <figure class="artwork exp-b" tabindex="0" data-speed="1.06">
+        <div class="frame" style="--ar:1280/983;background-image:url('assets/art/monochrome-textures-blur.webp')">
+          <picture>
+            <source type="image/webp" srcset="assets/art/monochrome-textures-640.webp 640w, assets/art/monochrome-textures-1280.webp 1280w" sizes="(max-width:760px) 88vw, 46vw">
+            <img src="assets/art/monochrome-textures-1280.jpg" width="1280" height="983" loading="lazy"
+                 alt="Black-and-white mark-making study: dots, hatches, coils, sprayed grain and brush squiggles colliding across the sheet like a catalogue of touch.">
+          </picture>
+        </div>
+        <figcaption class="wall-label"><span class="wl-title">Monochrome Textures</span><span class="wl-meta">ink study · mark catalogue</span></figcaption>
+      </figure>
+
+      <figure class="artwork exp-c art-rotator" tabindex="0" data-speed="0.94">
+        <div class="frame" style="--ar:918/1280;background-image:url('assets/art/cardboard-wall-blur.webp')">
+          <picture>
+            <source type="image/webp" srcset="assets/art/cardboard-wall-640.webp 640w, assets/art/cardboard-wall-1280.webp 918w" sizes="(max-width:760px) 88vw, 36vw">
+            <img src="assets/art/cardboard-wall-1280.jpg" width="918" height="1280" loading="lazy"
+                 alt="Geometric cardboard relief seen from above: a faceted star of triangulated panels with clustered angular limbs reaching outward.">
+          </picture>
+          <picture class="rotator-alt" aria-hidden="true">
+            <source type="image/webp" srcset="assets/art/cardboard-pedestal-640.webp 640w, assets/art/cardboard-pedestal-1280.webp 752w" sizes="(max-width:760px) 88vw, 36vw">
+            <img src="assets/art/cardboard-pedestal-1280.jpg" width="752" height="900" loading="lazy" alt="">
+          </picture>
+        </div>
+        <figcaption class="wall-label"><span class="wl-title">Faceted Structure</span><span class="wl-meta">corrugated cardboard · two aspects</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ══════════ V. CLOSING ══════════ -->
+  <section class="room room-closing" id="closing" data-accent="void" data-label="Closing">
+    <div class="closing-inner">
+      <blockquote class="closing-statement">
+        <p>I work between clay, ink, and paint —<br>
+        carrying memory and myth into material,<br>
+        until raw matter learns to hold a feeling.</p>
+      </blockquote>
+      <p class="closing-signature">Niki <em>Ghanbari</em></p>
+      <svg class="closing-mark" viewBox="0 0 120 120" width="64" height="64" aria-hidden="true">
+        <path d="M34 90 L34 30 L86 90 L86 30 M26 98 L94 98" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <footer class="closing-foot">
+        <p>© <span id="year">2026</span> Niki Ghanbari · all works by the artist</p>
+      </footer>
+    </div>
+  </section>
+
+  </main>
+  </div>
+</div>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/ScrollSmoother.min.js"></script>
+<script src="scripts/breathing.js"></script>
+<script src="scripts/grainfield.js"></script>
+<script src="scripts/scroll.js"></script>
+<script src="scripts/interactions.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+/* ═══════════════════════════════════════════════════════════
+   NIKI GHANBARI — STUDIO · motion states & reduced-motion
+   ═══════════════════════════════════════════════════════════ */
+
+/* elements the scroll spine reveals — start hidden only once
+   GSAP is confirmed present (class set by scroll.js), so the
+   site is fully readable if scripts never arrive */
+.has-gsap .artwork,
+.has-gsap .room-head,
+.has-gsap .closing-statement,
+.has-gsap .closing-signature,
+.has-gsap .closing-mark,
+.has-gsap .closing-foot {
+  opacity: 0;
+  transform: translateY(60px);
+}
+.has-gsap .room-entry .entry-kicker,
+.has-gsap .room-entry .line-word,
+.has-gsap .room-entry .entry-hint {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* breathing pulse available to CSS: rooms very slightly swell */
+.room-head .room-title {
+  transform: scale(calc(1 + var(--breath) * 0.006));
+  transform-origin: left bottom;
+}
+
+/* hover smudge — transform-only, driven by interactions.js */
+.artwork .frame { will-change: transform; }
+
+/* ═══════════ reduced motion ═══════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .entry-hint { animation: none; }
+
+  .frame img { transition: opacity .3s ease; }
+
+  .wall-label { opacity: 1 !important; transform: none !important; transition: none; }
+
+  .cursor { display: none; }
+}
+
+/* class mirror of the media query, set by breathing.js, so JS-driven
+   motion respects the same preference */
+.reduced-motion .artwork,
+.reduced-motion .room-head { opacity: 1 !important; transform: none !important; }

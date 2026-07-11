@@ -1,0 +1,52 @@
+/* ═══════════════════════════════════════════════════════════
+   NIKI GHANBARI — STUDIO · design tokens
+   Every color is lifted from a material in the work:
+   clay, ink, bronze patina, oxblood, unglazed plaster.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── material palette ── */
+  --void:      #0F0D0C;   /* darkened studio ground        */
+  --bone:      #E8E2D6;   /* unglazed plaster / canvas     */
+  --ink:       #1B1815;   /* calligraphic black            */
+  --clay:      #8B4225;   /* oxidized terracotta           */
+  --verdigris: #4A6558;   /* aged bronze patina            */
+  --oxblood:   #6B1F2A;   /* Woman in Red, deep register   */
+  --grain:     #C9C2B4;   /* overlay noise tone            */
+
+  /* lighter voices of each accent, for text on --void */
+  --clay-lit:      #C97C55;
+  --verdigris-lit: #8FAF9E;
+  --oxblood-lit:   #C05A66;
+
+  /* ── live accent (retargeted per room by scroll.js) ── */
+  --accent:     var(--clay);
+  --accent-lit: var(--clay-lit);
+
+  /* ── breath (written every frame by breathing.js, 0..1) ── */
+  --breath: 0;
+
+  /* ── type ── */
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-utility: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-label:   "Space Mono", "Courier New", monospace;
+
+  --text-hero:  clamp(2.2rem, min(7.6vw, 11.5svh), 7rem);
+  --text-title: clamp(2.2rem, 6.5vw, 5.5rem);
+  --text-body:  clamp(1rem, 1.35vw, 1.2rem);
+  --text-label: clamp(0.66rem, 0.85vw, 0.8rem);
+
+  /* ── rhythm ── */
+  --margin-room: clamp(1.25rem, 6vw, 7rem);
+  --gap-piece:   clamp(4rem, 18vh, 12rem);
+
+  color-scheme: dark;
+}
+
+::selection { background: var(--accent); color: var(--bone); }
+
+:focus-visible {
+  outline: 2px solid var(--accent-lit);
+  outline-offset: 6px;
+  border-radius: 2px;
+}

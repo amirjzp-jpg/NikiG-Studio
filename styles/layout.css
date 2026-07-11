@@ -1,0 +1,330 @@
+/* ═══════════════════════════════════════════════════════════
+   NIKI GHANBARI — STUDIO · room structure
+   One continuous space; rooms are lighting changes, not pages.
+   ═══════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--bone);
+  font-family: var(--font-utility);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+em  { font-style: italic; }
+
+/* ── skip link ── */
+.skip-link {
+  position: fixed; top: -100%; left: 1rem; z-index: 300;
+  background: var(--bone); color: var(--ink);
+  font-family: var(--font-label); font-size: var(--text-label);
+  padding: .6em 1em; text-decoration: none; transition: top .2s;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ── grain field canvas: the room's air ── */
+#grainfield {
+  position: fixed; inset: 0; z-index: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+/* ── preloader ── */
+.preloader {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--void);
+  display: grid; place-items: center;
+  transition: opacity .9s ease, visibility .9s;
+}
+.preloader.done { opacity: 0; visibility: hidden; }
+
+/* ── custom cursor ── */
+.cursor { position: fixed; top: 0; left: 0; z-index: 150; pointer-events: none; }
+.cursor-dot, .cursor-ring {
+  position: absolute; top: 0; left: 0; border-radius: 50%;
+  translate: -50% -50%;
+}
+.cursor-dot  { width: 5px; height: 5px; background: var(--bone); }
+.cursor-ring {
+  width: 34px; height: 34px;
+  border: 1px solid color-mix(in srgb, var(--accent-lit) 75%, transparent);
+  transition: width .35s ease, height .35s ease, border-color .35s ease;
+}
+.cursor.is-art .cursor-ring { width: 64px; height: 64px; border-color: var(--accent-lit); }
+@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+
+/* ── fixed wayfinding ── */
+.wayfinding {
+  position: fixed; z-index: 100;
+  top: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: clamp(.9rem, 2.5vw, 1.6rem) var(--margin-room);
+  mix-blend-mode: difference;   /* stays legible over bone + void alike */
+  pointer-events: none;
+}
+.wf-name {
+  font-family: var(--font-display);
+  font-weight: 600; font-size: clamp(.95rem, 1.6vw, 1.2rem);
+  letter-spacing: .01em; color: var(--bone);
+}
+.wf-room {
+  font-family: var(--font-label); font-size: var(--text-label);
+  text-transform: uppercase; letter-spacing: .28em; color: var(--bone);
+  opacity: .85;
+}
+
+/* ── smooth-scroll shell ── */
+#smooth-wrapper { position: relative; z-index: 1; }
+#smooth-content { will-change: transform; }
+
+/* ═══════════ rooms, generally ═══════════ */
+
+.room { position: relative; padding: var(--gap-piece) var(--margin-room); }
+
+.room-head { max-width: 60rem; margin-bottom: var(--gap-piece); }
+.room-number {
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: .5em; color: var(--accent-lit);
+  margin-bottom: 1.2rem;
+}
+.room-title {
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  font-weight: 560;
+  font-variation-settings: "opsz" 144;
+  line-height: .98; letter-spacing: -.015em;
+}
+.room-title em { font-weight: 340; color: var(--accent-lit); }
+.room-note {
+  margin-top: 1.4rem; max-width: 34ch;
+  color: color-mix(in srgb, var(--bone) 62%, transparent);
+}
+
+/* ═══════════ artwork figure ═══════════ */
+
+.artwork { position: relative; margin: 0 auto var(--gap-piece); }
+
+.frame {
+  position: relative;
+  aspect-ratio: var(--ar, 4/5);
+  overflow: hidden;
+  background-size: cover; background-position: center;   /* blur placeholder */
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--grain) 10%, transparent),
+    0 calc(28px + var(--breath) * 6px) 80px -30px rgba(0,0,0,.75);
+}
+.frame img {
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity 1.1s ease;
+}
+.frame img.is-loaded { opacity: 1; }
+.frame-alpha { background: none; box-shadow: none; overflow: visible; }
+.frame-alpha img {
+  object-fit: contain;
+  filter: drop-shadow(0 30px 50px rgba(0,0,0,.65));
+}
+
+/* placement rhythm: alternating walls */
+.art-left   { width: min(42vw, 34rem); margin-left: 0; }
+.art-right  { width: min(40vw, 32rem); margin-right: 0; }
+.art-wide   { width: min(56vw, 46rem); }
+.art-center { width: min(30vw, 22rem); }
+
+/* ── wall label (gallery didactic) ── */
+.wall-label {
+  position: absolute;
+  top: 100%; left: 0;
+  padding-top: .9rem;
+  display: flex; flex-direction: column; gap: .15rem;
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: .06em;
+  color: var(--grain);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .45s ease, transform .45s ease;
+  pointer-events: none;
+}
+.art-right .wall-label { left: auto; right: 0; text-align: right; }
+.wl-title { color: var(--bone); text-transform: uppercase; letter-spacing: .14em; }
+.wl-meta  { color: color-mix(in srgb, var(--grain) 72%, transparent); }
+.artwork:hover .wall-label,
+.artwork:focus-visible .wall-label,
+.artwork.label-open .wall-label { opacity: 1; transform: translateY(0); }
+
+/* ═══════════ I. entry ═══════════ */
+
+.room-entry {
+  min-height: 100svh;
+  display: grid; place-items: center;
+  text-align: center;
+  padding-block: clamp(4rem, 10vh, 7rem);
+}
+.entry-kicker {
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: .34em; text-transform: uppercase;
+  color: var(--grain);
+  margin-bottom: clamp(1.5rem, 4vh, 3rem);
+}
+.entry-line {
+  font-family: var(--font-display);
+  font-weight: 420;
+  font-variation-settings: "opsz" 144;
+  font-size: var(--text-hero);
+  line-height: 1.02; letter-spacing: -.02em;
+  max-width: 11ch; margin-inline: auto;
+}
+.entry-line em { font-weight: 250; font-style: italic; }
+.line-word { display: block; }
+.entry-hint {
+  margin-top: clamp(2rem, 6vh, 4rem);
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: .3em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--grain) 55%, transparent);
+  animation: hint-drift 5.6s ease-in-out infinite;
+}
+@keyframes hint-drift { 0%,100% { transform: translateY(0); opacity:.55 } 50% { transform: translateY(8px); opacity:.9 } }
+
+/* ═══════════ interstitial: studio glimpse ═══════════ */
+
+.interstitial { overflow: hidden; padding-block: 0; }
+.studio-track {
+  display: flex; align-items: center;
+  gap: clamp(2rem, 8vw, 8rem);
+  width: max-content;
+  padding-block: clamp(6rem, 22vh, 14rem);
+  will-change: transform;
+}
+.studio-line {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(1.6rem, 4vw, 3.4rem);
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--bone) 80%, transparent);
+}
+.studio-photo { width: min(56vw, 30rem); margin: 0; flex: none; }
+
+/* ═══════════ III. cultural ═══════════ */
+
+.vessel-pair {
+  display: flex; align-items: flex-start; justify-content: center;
+  gap: clamp(2rem, 7vw, 7rem);
+  margin-bottom: var(--gap-piece);
+}
+.vessel-pair .artwork { width: min(34vw, 26rem); margin-bottom: 0; }
+.vessel-pair .artwork:last-child { margin-top: clamp(3rem, 10vh, 7rem); }
+
+/* ── centerpiece: Zal & the Simurgh ── */
+.centerpiece { position: relative; }
+.cp-stage {
+  min-height: 100svh;
+  display: grid; place-items: center;
+  padding-block: clamp(3rem, 8vh, 6rem);
+}
+.cp-viewport {
+  position: relative;
+  width: min(78vw, 46rem);
+  aspect-ratio: 1023/1280;
+  max-height: 78svh;
+  overflow: hidden;
+  box-shadow: 0 0 calc(60px + var(--breath) * 50px) -10px
+    color-mix(in srgb, var(--accent) calc(22% + var(--breath) * 14%), transparent),
+    0 40px 90px -40px rgba(0,0,0,.8);
+}
+.cp-pan { position: absolute; inset: 0; will-change: transform; transform-origin: 50% 50%; }
+.cp-img { width: 100%; height: 100%; object-fit: cover; opacity: 1 !important; }
+.cp-vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(15,13,12,.55) 100%);
+}
+.cp-captions {
+  position: relative; height: 2.4em; margin-top: 1.6rem;
+  width: 100%; text-align: center;
+}
+.cp-caption {
+  position: absolute; inset: 0;
+  font-family: var(--font-display); font-style: italic; font-weight: 320;
+  font-size: clamp(1.1rem, 2.4vw, 1.7rem);
+  color: color-mix(in srgb, var(--bone) 85%, transparent);
+  opacity: 0;
+}
+.cp-label {
+  position: static; margin-top: 1.1rem;
+  align-items: center; text-align: center;
+}
+
+/* ═══════════ IV. experimental ═══════════ */
+
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+}
+.exp-grid .artwork { width: auto; margin: 0; }
+.exp-a { grid-column: 1 / span 5; }
+.exp-b { grid-column: 7 / span 6; margin-top: clamp(4rem, 16vh, 10rem) !important; }
+.exp-c { grid-column: 3 / span 5; margin-top: clamp(3rem, 12vh, 8rem) !important; }
+
+/* cardboard rotator: second aspect stacked for crossfade */
+.art-rotator .frame { position: relative; }
+.art-rotator .rotator-alt {
+  position: absolute; inset: 0;
+}
+.art-rotator .rotator-alt img {
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0;
+}
+.art-rotator .rotator-alt img.is-loaded { opacity: var(--rot, 0); transition: none; }
+
+/* ═══════════ V. closing ═══════════ */
+
+.room-closing {
+  min-height: 92svh;
+  display: grid; place-items: center; text-align: center;
+}
+.closing-statement p {
+  font-family: var(--font-display); font-weight: 330;
+  font-variation-settings: "opsz" 144;
+  font-size: clamp(1.4rem, 3.4vw, 2.6rem);
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--bone) 92%, transparent);
+}
+.closing-signature {
+  margin-top: clamp(2.5rem, 8vh, 5rem);
+  font-family: var(--font-display); font-weight: 560; font-style: italic;
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+}
+.closing-signature em { font-weight: 300; }
+.closing-mark { margin: 2.2rem auto 0; color: var(--accent-lit); opacity: .8; }
+.closing-foot {
+  margin-top: clamp(3rem, 9vh, 6rem);
+  font-family: var(--font-label); font-size: var(--text-label);
+  letter-spacing: .12em; color: color-mix(in srgb, var(--grain) 55%, transparent);
+}
+
+/* ═══════════ mobile ═══════════ */
+
+@media (max-width: 760px) {
+  .art-left, .art-right, .art-wide, .art-center { width: min(88vw, 30rem); margin-inline: auto; }
+  .art-center { width: min(64vw, 20rem); }
+
+  .vessel-pair { flex-direction: column; align-items: center; }
+  .vessel-pair .artwork { width: min(82vw, 26rem); }
+  .vessel-pair .artwork:last-child { margin-top: 0; }
+
+  .exp-grid { display: block; }
+  .exp-grid .artwork { width: min(88vw, 30rem); margin: 0 auto var(--gap-piece) !important; }
+
+  .studio-track { flex-direction: column; width: 100%; gap: 2.2rem; }
+  .studio-line { white-space: normal; text-align: center; }
+  .studio-photo { width: min(78vw, 24rem); }
+
+  .cp-viewport { width: 88vw; max-height: 70svh; }
+
+  .wall-label { position: static; padding-top: .8rem; opacity: 1; transform: none; }
+}
