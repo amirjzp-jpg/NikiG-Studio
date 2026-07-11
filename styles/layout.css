@@ -309,22 +309,24 @@ em  { font-style: italic; }
 
 /* ═══════════ mobile ═══════════ */
 
+/* Phones get the same experience at a tighter scale: alternating walls,
+   flanking vessels, the irregular grid, the horizontal studio pan —
+   nothing is flattened into a single centered column. */
 @media (max-width: 760px) {
-  .art-left, .art-right, .art-wide, .art-center { width: min(88vw, 30rem); margin-inline: auto; }
-  .art-center { width: min(64vw, 20rem); }
+  .art-left   { width: min(76vw, 26rem); }
+  .art-right  { width: min(72vw, 25rem); }
+  .art-wide   { width: min(88vw, 30rem); }
+  .art-center { width: min(54vw, 18rem); }
 
-  .vessel-pair { flex-direction: column; align-items: center; }
-  .vessel-pair .artwork { width: min(82vw, 26rem); }
-  .vessel-pair .artwork:last-child { margin-top: 0; }
+  .vessel-pair { gap: clamp(1rem, 5vw, 3rem); }
+  .vessel-pair .artwork { width: 41vw; }
+  .vessel-pair .artwork:last-child { margin-top: clamp(2rem, 8vh, 5rem); }
 
-  .exp-grid { display: block; }
-  .exp-grid .artwork { width: min(88vw, 30rem); margin: 0 auto var(--gap-piece) !important; }
+  .exp-a { grid-column: 1 / span 8; }
+  .exp-b { grid-column: 4 / span 9; }
+  .exp-c { grid-column: 2 / span 8; }
 
-  .studio-track { flex-direction: column; width: 100%; gap: 2.2rem; }
-  .studio-line { white-space: normal; text-align: center; }
-  .studio-photo { width: min(78vw, 24rem); }
+  .studio-photo { width: min(68vw, 22rem); }
 
-  .cp-viewport { width: 88vw; max-height: 70svh; }
-
-  .wall-label { position: static; padding-top: .8rem; opacity: 1; transform: none; }
+  .cp-viewport { width: 88vw; max-height: 74svh; }
 }

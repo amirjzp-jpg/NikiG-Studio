@@ -13,7 +13,6 @@
   if (window.ScrollSmoother) gsap.registerPlugin(ScrollSmoother);
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const mobile = matchMedia('(max-width: 760px)').matches;
   const root = document.documentElement;
 
   root.classList.add('has-gsap');   // arms the hidden-until-revealed styles
@@ -25,8 +24,8 @@
       wrapper: '#smooth-wrapper',
       content: '#smooth-content',
       smooth: 1.15,
-      effects: !mobile,            // data-speed parallax on desktop only
-      smoothTouch: 0.1,
+      effects: true,               // data-speed parallax everywhere
+      smoothTouch: 0.8,            // the same walk on a phone
     });
   }
 
@@ -99,7 +98,7 @@
   });
 
   /* ── interstitial: horizontal pan past the studio door ── */
-  if (!mobile && !reduced) {
+  if (!reduced) {
     const track = document.querySelector('.studio-track');
     const pan = () => -(track.scrollWidth - innerWidth + innerWidth * 0.08);
     gsap.fromTo(track, { x: () => innerWidth * 0.06 }, {

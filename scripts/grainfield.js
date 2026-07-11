@@ -148,8 +148,7 @@
   });
 
   /* render at reduced resolution — it's atmosphere, not imagery */
-  const isMobile = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
-  const SCALE = isMobile ? 0.28 : 0.45;
+  const SCALE = 0.45;
 
   function resize() {
     const w = Math.max(2, Math.round(innerWidth * SCALE));

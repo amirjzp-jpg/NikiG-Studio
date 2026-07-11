@@ -78,9 +78,10 @@
     });
   })();
 
-  /* ── hover smudge: the frame gives, a little, under the hand ── */
+  /* ── smudge: the frame gives, a little, under the hand.
+        Hover-driven with a mouse; drag-driven under a finger. ── */
   (function smudge() {
-    if (coarse || reduced) return;
+    if (reduced) return;
     document.querySelectorAll('.artwork').forEach((art) => {
       const frame = art.querySelector('.frame');
       if (!frame) return;
@@ -103,10 +104,13 @@
         tx = nx * 9; ty = ny * 7; tr = nx * 0.7;
         if (!raf) raf = requestAnimationFrame(apply);
       }, { passive: true });
-      art.addEventListener('pointerleave', () => {
+      const release = () => {
         active = false;
         if (!raf) raf = requestAnimationFrame(apply);
-      });
+      };
+      art.addEventListener('pointerleave', release);
+      art.addEventListener('pointerup', release);
+      art.addEventListener('pointercancel', release);
     });
   })();
 
